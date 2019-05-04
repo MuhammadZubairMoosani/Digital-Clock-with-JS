@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<style>
+    @font-face {
+        font-family: Digital-7 Mono;
+        src: url(./digital-7.mono.ttf)
+    }
+
+    body,
+    html {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        background-color: #111;
+
+    }
+
+    .container {
+        font-family: 'Digital-7 Mono';
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #3498DB;
+        text-shadow: 0 0 10px #3498DB;
+    }
+
+    #nestedContainer {
+        width: 18em;
+        font-size: xx-large;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    @media (max-width: 600px) {
+        #nestedContainer {
+            width: 230px;
+            font-size: larger;
+        }
+    }
+
+    #time {
+        font-size: 10em
+    }
+
+    @media (max-width: 600px) {
+        #time {
+            font-size: 60px;
+        }
+    }
+
+    #dayName {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        width: 18em;
+        font-size: xx-large;
+    }
+
+    @media (max-width: 600px) {
+        #dayName {
+            justify-content: center;
+            font-size: x-large;
+            width: 100px
+        }
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div id="nestedContainer">
+            <div id="DMY"></div>
+            <span id="session"></span>
+        </div>
+        <div id="time"></div>
+        <div id="dayName"></div>
+    </div>
+</body>
+<script>
+    function showTime() {
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = date.getMonth();
+        var d = date.getDate();
+        var day = date.getDay();
+        var h = date.getHours();
+        var m = date.getMinutes();
+        var s = date.getSeconds();
+        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+        var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thusday', 'Friday', 'Saturday']
+        var session = 'AM';
+        if (h == 0) h = 12;
+        if (h > 12) h = h - 12; session = 'PM';
+        (h < 10) ? h = '0' + h : h;
+        (m < 10) ? m = '0' + m : m;
+        (s < 10) ? s = '0' + s : s;
+        (d < 10) ? d = '0' + d : d;
+
+        var DMY = d + "/" + months[month] + "/" + year;
+        document.getElementById('DMY').textContent = DMY;
+        document.getElementById('session').textContent = session;
+
+        var time = h + ":" + m + ":" + s;
+        document.getElementById('time').textContent = time;
+        document.getElementById('dayName').textContent = days[day];
+        setTimeout(showTime, 1000);
+    }
+    showTime()
+</script>
+
+</html>
